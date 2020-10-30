@@ -13,10 +13,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -33,14 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ly.bithive.hsavemeandroid.adapter.ClinksAdapter;
-import ly.bithive.hsavemeandroid.adapter.DevicesAdapter;
-import ly.bithive.hsavemeandroid.adapter.ClinksAdapter;
-import ly.bithive.hsavemeandroid.model.Clink;
-import ly.bithive.hsavemeandroid.model.Device;
 import ly.bithive.hsavemeandroid.model.Clink;
 
-import static ly.bithive.hsavemeandroid.COMMON.GET_CLINKS_URL;
-import static ly.bithive.hsavemeandroid.Utils.getItemLink;
+import static ly.bithive.hsavemeandroid.util.Utils.getItemLink;
 
 public class ClinksActivity extends AppCompatActivity implements ClinksAdapter.SelectedItem {
     Context context;

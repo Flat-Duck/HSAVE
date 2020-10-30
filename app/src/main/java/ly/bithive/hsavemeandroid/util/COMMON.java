@@ -1,4 +1,4 @@
-package ly.bithive.hsavemeandroid;
+package ly.bithive.hsavemeandroid.util;
 
 
 //import java.security.PublicKey;
@@ -23,6 +23,6 @@ public class COMMON {
 //    public static String BASE_URL = "";
 //    public static String BASE_URL = "";
 
-    public final static int CL = 1, DR = 2, SP = 3, DV = 4, TS = 5;
+    public final static int CL = 1, DR = 2, SP = 3, DV = 4, TS = 5, LO = 6;
 
 }

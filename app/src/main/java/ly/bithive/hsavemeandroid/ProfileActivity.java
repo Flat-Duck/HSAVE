@@ -35,7 +35,7 @@ import ly.bithive.hsavemeandroid.model.Clink;
 import ly.bithive.hsavemeandroid.model.Device;
 import ly.bithive.hsavemeandroid.model.Doctor;
 
-import static ly.bithive.hsavemeandroid.COMMON.GET_CLINKS_URL;
+import static ly.bithive.hsavemeandroid.util.COMMON.GET_CLINKS_URL;
 
 
 public class ProfileActivity extends AppCompatActivity {

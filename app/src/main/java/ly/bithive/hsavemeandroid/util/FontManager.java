@@ -1,4 +1,4 @@
-package ly.bithive.hsavemeandroid;
+package ly.bithive.hsavemeandroid.util;
 
 import android.content.Context;
 import android.graphics.Typeface;

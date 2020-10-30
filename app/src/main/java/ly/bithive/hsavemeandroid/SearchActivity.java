@@ -46,8 +46,8 @@ import ly.bithive.hsavemeandroid.model.Doctor;
 import ly.bithive.hsavemeandroid.model.Specialty;
 import ly.bithive.hsavemeandroid.model.Test;
 
-import static ly.bithive.hsavemeandroid.COMMON.*;
-import static ly.bithive.hsavemeandroid.Utils.getItemLink;
+import static ly.bithive.hsavemeandroid.util.COMMON.*;
+import static ly.bithive.hsavemeandroid.util.Utils.getItemLink;
 
 public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.SelectedItem,
         DevicesAdapter.SelectedItem, TestsAdapter.SelectedItem, SpecialtiesAdapter.SelectedItem,
@@ -90,7 +90,7 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-
+//        recyclerView.setEmptyView(findViewById(R.id.empty_view));
         ImageButton button = (ImageButton) findViewById(R.id.search_type);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,6 +193,9 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
             case R.id.medical:
                 getData(getItemLink(TS), searchTypeValue = TS);
                 break;
+            case R.id.location:
+               startActivity(new Intent(SearchActivity.this,MapsActivity.class));
+                break;
 //            case R.id.location: getData(getItemLink(dv),searchTypeValue = dv);break;
         }
     }
@@ -221,6 +224,7 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
                         case DV:
                             parseDevices(item);
                             break;
+
                         //   case sp: parseData(response,cl);break;
                         // case ts: parseData(response,cl);break;
                     }

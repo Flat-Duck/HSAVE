@@ -50,7 +50,7 @@ import java.util.List;
 
 import ly.bithive.hsavemeandroid.model.Clink;
 
-import static ly.bithive.hsavemeandroid.COMMON.GET_UPDATE_URL;
+import static ly.bithive.hsavemeandroid.util.COMMON.GET_UPDATE_URL;
 
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {

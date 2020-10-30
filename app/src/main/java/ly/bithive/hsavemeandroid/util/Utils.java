@@ -1,6 +1,6 @@
-package ly.bithive.hsavemeandroid;
+package ly.bithive.hsavemeandroid.util;
 
-import static ly.bithive.hsavemeandroid.COMMON.*;
+import static ly.bithive.hsavemeandroid.util.COMMON.*;
 
 public class Utils {
     private Utils() {
