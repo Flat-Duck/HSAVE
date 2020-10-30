@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">HSaveMeAndroid</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_information">Information</string>
+    <string name="title_setting">Setting</string>
+    <string name="based_on_device">By Device</string>
+    <string name="based_on_test">By Test</string>
+    <string name="based_on_department">By Specialty</string>
+    <string name="based_on_doctor">By Doctor</string>
+    <string name="based_on_clink">By Clink</string>
+    <string name="based_on_location">By Location</string>
+    <string name="choose_search_type">Chose Search Type</string>
+    <string name="choose_order_type">Chose Order Type</string>
+    <string name="by_alphabet">By Alphabet</string>
+    <string name="by_town">By Town</string>
+</resources>

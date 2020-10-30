@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:text="@string/choose_search_type"
+        android:textSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <RadioButton
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/location"
+            android:text="@string/based_on_location" />
+
+        <RadioButton
+            android:id="@+id/clinic"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/hospit"
+            android:text="@string/based_on_clink" />
+
+        <RadioButton
+            android:id="@+id/department"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/departmantt"
+            android:text="@string/based_on_department" />
+
+        <RadioButton
+            android:id="@+id/doctor"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/doctor"
+            android:text="@string/based_on_doctor" />
+
+        <RadioButton
+            android:id="@+id/medical"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/medical"
+            android:text="@string/based_on_test" />
+
+        <RadioButton
+            android:id="@+id/device"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:drawableStart="@drawable/health"
+            android:text="@string/based_on_device" />
+
+    </RadioGroup>
+</LinearLayout>
