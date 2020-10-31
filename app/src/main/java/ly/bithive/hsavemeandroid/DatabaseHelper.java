@@ -21,7 +21,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String LOG = DatabaseHelper.class.getName();
 
     // Database Version
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     // Database Name
     private static final String DATABASE_NAME = "save_ةe";
@@ -58,6 +58,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_STATS = "CREATE TABLE " + TABLE_STATS
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIMESTAMP + " INTEGER" + ")";
 
+    private static final String CREATE_TIME_STAMP = "INSERT INTO " + TABLE_STATS + "(" + KEY_TIMESTAMP + ") VALUES(" + 0L +");";
+
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,6 +70,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         // creating required tables
         db.execSQL(CREATE_TABLE_CLINKS);
         db.execSQL(CREATE_TABLE_STATS);
+        db.execSQL(CREATE_TIME_STAMP);
+      //  createTimeStamp();
+    }
+
+    private void createTimeStamp() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, 1);
+        values.put(KEY_TIMESTAMP, 0L);
+        db.insert(TABLE_STATS, null, values);
     }
 
     @Override
@@ -202,13 +215,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(KEY_TIMESTAMP, timeStamp);
-        db.update(TABLE_STATS, cv, KEY_ID + " = ?", new String[]{"1"});
-        //SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
+        // db.update(TABLE_STATS,)
+        if (db.update(TABLE_STATS, cv, KEY_ID + " = ?", new String[]{"1"}) == 1) {
+
+        }
+//        //SQLiteDatabase db = this.getWritableDatabase();
+//        ContentValues values = new ContentValues();
     }
 
     public long getTimeStamp() {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_STATS, new String[]{"*"}, null,
                 null, null, null, null, null);
         if (cursor != null) {
@@ -219,5 +235,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return 0L;
+
     }
 }

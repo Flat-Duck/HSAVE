@@ -74,12 +74,16 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
     ClinksAdapter clinksAdapter;
     TestsAdapter testsAdapter;
     SpecialtiesAdapter specialtiesAdapter;
+    boolean online ;
+    DatabaseHelper helper;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        online = getIntent().getBooleanExtra("ONLINE",true);
+helper = new DatabaseHelper(this);
         context = this;
         requestQueue = Volley.newRequestQueue(this);
         Toolbar toolbar = findViewById(R.id.tool_bar);
@@ -92,12 +96,21 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.setEmptyView(findViewById(R.id.empty_view));
         ImageButton button = (ImageButton) findViewById(R.id.search_type);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSelectSearchType();
-            }
-        });
+        if(!online){
+           clinkList = helper.getAllClinks();
+           clinksAdapter = new ClinksAdapter(clinkList,this);
+           clinksAdapter.notifyDataSetChanged();
+            recyclerView.setAdapter(clinksAdapter);
+            button.setVisibility(View.GONE);
+        }else {
+
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    showSelectSearchType();
+                }
+            });
+        }
 
 //        Typeface iconFont = FontManager.getTypeface(getApplicationContext(), FontManager.FONTAWESOME);
 //        FontManager.markAsIconContainer(findViewById(R.id.icons_container), iconFont);

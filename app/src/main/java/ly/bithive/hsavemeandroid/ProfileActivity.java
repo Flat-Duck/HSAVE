@@ -46,10 +46,9 @@ public class ProfileActivity extends AppCompatActivity {
     List<Device> deviceList;
 
     public OnDoctorsDataReceivedListener DataListener;
-    public void setDataListener(OnDoctorsDataReceivedListener mDataListener) {this.DataListener = mDataListener; }
+   public void setDataListener(OnDoctorsDataReceivedListener mDataListener) {this.DataListener = mDataListener; }
     public OnDevicesDataReceivedListener DeviceDataListener;
     public void setDevicesDataListener(OnDevicesDataReceivedListener mDataListener) { this.DeviceDataListener = mDataListener; }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
