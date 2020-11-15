@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -77,13 +78,12 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
     boolean online ;
     DatabaseHelper helper;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         online = getIntent().getBooleanExtra("ONLINE",true);
-helper = new DatabaseHelper(this);
+        helper = new DatabaseHelper(this);
         context = this;
         requestQueue = Volley.newRequestQueue(this);
         Toolbar toolbar = findViewById(R.id.tool_bar);
@@ -187,7 +187,6 @@ helper = new DatabaseHelper(this);
         builder.show();
     }
 
-
     void checkSelected(int id) {
         switch (id) {
             case R.id.doctor:
@@ -224,6 +223,7 @@ helper = new DatabaseHelper(this);
                     switch (searchTypeValue) {
                         case CL:
                             parseClinks(item);
+                            Log.d("sss",item.toString());
                             break;
                         case DR:
                             parseDoctors(item);
@@ -324,7 +324,9 @@ helper = new DatabaseHelper(this);
         recyclerView.setAdapter(devicesAdapter);
     }
 
+
     private void parseDoctors(JSONArray doctors) {
+       //tring s = "";
         doctorList = new ArrayList<>();
         for (int i = 0; i < doctors.length(); i++) {
             try {
