@@ -7,6 +7,30 @@
     tools:context=".MainActivity"
 
     >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/tool_bar"
+        android:elevation="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        tools:ignore="MissingConstraints"/>
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.ToolBar.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/Theme.ToolBar.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,31 +46,33 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:gravity="center">
+        app:layout_constraintTop_toTopOf="parent">
 
         <Button
             android:id="@+id/directory"
             android:layout_width="160dp"
             android:layout_height="165dp"
-            android:text="دليل"
-            android:textSize="20dp"
-            android:padding="5dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="15dp"
             android:background="@drawable/bg_recycle_raduis"
-            android:drawableTop="@drawable/hospital"/>
+            android:drawableTop="@drawable/hospital"
+            android:padding="5dp"
+            android:text="دليل"
+            android:textSize="20dp" />
+
 
         <Button
             android:id="@+id/onlineSearch"
             android:layout_width="160dp"
             android:layout_height="165dp"
-            android:text="بحث"
-            android:textSize="20dp"
-            android:layout_marginTop="20dp"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_recycle_raduis"
-            android:drawableTop="@drawable/search"/>
+            android:drawableTop="@drawable/search"
+            android:text="بحث"
+            android:textSize="20dp" />
 
     </LinearLayout>
 
