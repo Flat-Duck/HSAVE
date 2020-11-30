@@ -75,7 +75,10 @@ public class MainActivity extends AppCompatActivity implements OnClinksDataRecei
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-        Toast.makeText(MainActivity.this,String.valueOf(id),Toast.LENGTH_LONG).show();
+            startActivity(new Intent(MainActivity.this,SettingsActivity.class));
+            return true;
+        }else if(id == R.id.about){
+            startActivity(new Intent(MainActivity.this,AboutActivity.class));
             return true;
         }
 
