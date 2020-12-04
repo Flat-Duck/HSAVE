@@ -40,6 +40,7 @@ import ly.bithive.hsavemeandroid.adapter.ClinksAdapter;
 import ly.bithive.hsavemeandroid.adapter.DevicesAdapter;
 import ly.bithive.hsavemeandroid.adapter.DoctorsAdapter;
 import ly.bithive.hsavemeandroid.adapter.SpecialtiesAdapter;
+
 import ly.bithive.hsavemeandroid.adapter.TestsAdapter;
 import ly.bithive.hsavemeandroid.model.Clink;
 import ly.bithive.hsavemeandroid.model.Device;
@@ -155,7 +156,7 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
                 return true;
             }
         });
-        searchView.setQueryHint("ابحت هنا");
+        searchView.setQueryHint(getString(R.string.search_here));
         return true;
     }
 
@@ -172,13 +173,13 @@ public class SearchActivity extends AppCompatActivity implements DoctorsAdapter.
             }
         });
 
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 checkSelected(rad);
             }
         });
-        builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();

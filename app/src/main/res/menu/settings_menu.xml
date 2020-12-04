@@ -8,7 +8,7 @@
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:icon="@drawable/ic_settings"
-        android:title="Settings"
+        android:title="@string/title_setting"
         app:showAsAction="never"
          />
     <item

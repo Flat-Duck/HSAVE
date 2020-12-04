@@ -4,7 +4,7 @@ package ly.bithive.hsavemeandroid.util;
 //import java.security.PublicKey;
 
 public class COMMON {
-    public static String BASE_URL = "http://192.168.8.103/saveme/public/api/";
+    public static String BASE_URL = "http://192.168.43.18/saveme/public/api/";
     public static String CHECK_CONNECTION_URL = BASE_URL + "connection_check";
     public static String CHECK_UPDATE_URL = BASE_URL + "update_check";
     public static String GET_UPDATE_URL = BASE_URL + "clinks";

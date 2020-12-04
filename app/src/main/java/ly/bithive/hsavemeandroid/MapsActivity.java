@@ -196,7 +196,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, GET_UPDATE_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                Log.d("VOLLEY ERROR", response.toString());
                 parseData(response);
 
 

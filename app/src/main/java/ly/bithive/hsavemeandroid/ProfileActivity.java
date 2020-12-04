@@ -27,13 +27,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ly.bithive.hsavemeandroid.adapter.ProfileTabAdapter;
+import ly.bithive.hsavemeandroid.fragment.AppointmentsFragment;
 import ly.bithive.hsavemeandroid.fragment.DevicesFragment;
 import ly.bithive.hsavemeandroid.fragment.DoctorsFragment;
+import ly.bithive.hsavemeandroid.fragment.SpecialtiesFragment;
+import ly.bithive.hsavemeandroid.interf.OnAppointmentsDataReceivedListener;
 import ly.bithive.hsavemeandroid.interf.OnDevicesDataReceivedListener;
 import ly.bithive.hsavemeandroid.interf.OnDoctorsDataReceivedListener;
+import ly.bithive.hsavemeandroid.interf.OnSpecialtiesDataReceivedListener;
+import ly.bithive.hsavemeandroid.model.Appointment;
 import ly.bithive.hsavemeandroid.model.Clink;
 import ly.bithive.hsavemeandroid.model.Device;
 import ly.bithive.hsavemeandroid.model.Doctor;
+import ly.bithive.hsavemeandroid.model.Specialty;
 
 import static ly.bithive.hsavemeandroid.util.COMMON.GET_CLINKS_URL;
 
@@ -44,16 +50,38 @@ public class ProfileActivity extends AppCompatActivity {
     RequestQueue requestQueue;
     List<Doctor> doctorList;
     List<Device> deviceList;
+    List<Specialty> specialityList;
+    List<Appointment> appointmentList;
 
     public OnDoctorsDataReceivedListener DataListener;
-   public void setDataListener(OnDoctorsDataReceivedListener mDataListener) {this.DataListener = mDataListener; }
+
+    public void setDataListener(OnDoctorsDataReceivedListener mDataListener) {
+        this.DataListener = mDataListener;
+    }
+
     public OnDevicesDataReceivedListener DeviceDataListener;
-    public void setDevicesDataListener(OnDevicesDataReceivedListener mDataListener) { this.DeviceDataListener = mDataListener; }
+
+    public void setDevicesDataListener(OnDevicesDataReceivedListener mDataListener) {
+        this.DeviceDataListener = mDataListener;
+    }
+
+    public OnSpecialtiesDataReceivedListener specialtiesDataListener;
+
+    public void setSpecialityDataListener(OnSpecialtiesDataReceivedListener mDataListener) {
+        this.specialtiesDataListener = mDataListener;
+    }
+
+    public OnAppointmentsDataReceivedListener AppointmentDataListener;
+
+    public void setDataListener(OnAppointmentsDataReceivedListener mDataListener) {
+        this.AppointmentDataListener = mDataListener;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         requestQueue = Volley.newRequestQueue(this);
         String Id = getIntent().getStringExtra("CLINIC_ID");
 
@@ -68,8 +96,10 @@ public class ProfileActivity extends AppCompatActivity {
     private void setupViewPager(ViewPager viewPager) {
         ProfileTabAdapter adapter = new ProfileTabAdapter(getSupportFragmentManager());
 
-        adapter.addFrag(new DevicesFragment(), "Devices");
-        adapter.addFrag(new DoctorsFragment(), "Doctors");
+        adapter.addFrag(new DevicesFragment(), getString(R.string.Devices));
+        adapter.addFrag(new DoctorsFragment(), getString(R.string.Doctors));
+//        adapter.addFrag(new AppointmentsFragment(), getString(R.string.Appointments));
+//        adapter.addFrag(new SpecialtiesFragment(), getString(R.string.Specialties));
         // adapter.addFrag(new TestsFragment(), "Tests");
         viewPager.setAdapter(adapter);
     }
@@ -80,7 +110,7 @@ public class ProfileActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     parseData(response);
-                    Log.d("XXx",response.toString());
+                    Log.d("XXx", response.toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -115,6 +145,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         parseDevices(item.getJSONArray("devices"));
         parseDoctors(item.getJSONArray("doctors"));
+       // parseSpecialty(item.getJSONArray("doctors"));
+       // parseAppointments(item.getJSONArray("doctors"));
 
         Toast.makeText(ProfileActivity.this, "// Data Sent", Toast.LENGTH_SHORT).show();
     }
@@ -133,6 +165,23 @@ public class ProfileActivity extends AppCompatActivity {
         }
         DataListener.onDoctorDataReceived(doctorList);
     }
+
+    private void parseAppointments(JSONArray appointments) {
+        appointmentList = new ArrayList<>();
+        for (int i = 0; i < appointments.length(); i++) {
+            try {
+                JSONObject dv = appointments.getJSONObject(i);
+                Appointment appointment = new Appointment();
+                appointment.setDrName(dv.getString("name")).setaDay(dv.getString("description"))
+                        .setStarTime(dv.getString("name")).setEndTime(dv.getString("description"));
+                appointmentList.add(appointment);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        AppointmentDataListener.setDataListener(appointmentList);
+    }
+
     private void parseDevices(JSONArray devices) {
         deviceList = new ArrayList<>();
         for (int i = 0; i < devices.length(); i++) {
@@ -146,5 +195,20 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
         DeviceDataListener.onDeviceDataReceived(deviceList);
+    }
+
+    private void parseSpecialty(JSONArray specialties) {
+        specialityList = new ArrayList<>();
+        for (int i = 0; i < specialties.length(); i++) {
+            try {
+                JSONObject dv = specialties.getJSONObject(i);
+                Specialty specialty = new Specialty();
+                specialty.setName(dv.getString("name")).setDescription(dv.getString("description"));
+                specialityList.add(specialty);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        specialtiesDataListener.onSpecialtyDataReceived(specialityList);
     }
 }

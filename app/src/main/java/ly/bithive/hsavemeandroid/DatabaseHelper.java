@@ -30,9 +30,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_CLINKS = "clinks";
 
     private static final String TABLE_STATS = "stats";
+    private static final String TABLE_LOCALE = "locale";
 
     // Common column names
     private static final String KEY_ID = "id";
+    private static final String KEY_LOCALE = "locale";
 
     // CLINKS Table - column nmaes
     private static final String KEY_NAME = "name";
@@ -58,7 +60,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_STATS = "CREATE TABLE " + TABLE_STATS
             + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TIMESTAMP + " INTEGER" + ")";
 
+ private static final String CREATE_TABLE_LOCALE = "CREATE TABLE " + TABLE_LOCALE
+            + "(" + KEY_ID + " INTEGER PRIMARY KEY," + KEY_LOCALE + " TEXT" + ")";
+
     private static final String CREATE_TIME_STAMP = "INSERT INTO " + TABLE_STATS + "(" + KEY_TIMESTAMP + ") VALUES(" + 0L +");";
+    private static final String CREATE_LOCALE = "INSERT INTO " + TABLE_LOCALE + "(" + KEY_LOCALE + ") VALUES('ar');";
 
 
     public DatabaseHelper(Context context) {
@@ -71,6 +77,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_CLINKS);
         db.execSQL(CREATE_TABLE_STATS);
         db.execSQL(CREATE_TIME_STAMP);
+        db.execSQL(CREATE_TABLE_LOCALE);
+        db.execSQL(CREATE_LOCALE);
       //  createTimeStamp();
     }
 
@@ -223,6 +231,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 //        ContentValues values = new ContentValues();
     }
 
+    public void resetLocale(String locale) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(KEY_LOCALE, locale);
+        if (db.update(TABLE_LOCALE, cv, KEY_ID + " = ?", new String[]{"1"}) == 1) {
+        }
+    }
+
     public long getTimeStamp() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_STATS, new String[]{"*"}, null,
@@ -235,6 +251,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         db.close();
         return 0L;
+
+    }
+    public String getLocale() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_LOCALE, new String[]{"*"}, null,
+                null, null, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                return cursor.getString(1);
+            }
+            cursor.close();
+        }
+        db.close();
+        return "ar";
 
     }
 }

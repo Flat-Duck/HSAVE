@@ -31,4 +31,17 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="Devices">Devices</string>
+    <string name="Doctors">Doctors</string>
+    <string name="Appointments">Appointments</string>
+    <string name="Specialties">Specialties</string>
+    <string name="arabic">Arabic</string>
+    <string name="english">English</string>
+    <string name="search_here">Search here</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="contact_us_at_facebook">Contact us @ Facebook</string>
+    <string name="version">Version 1.0</string>
+    <string name="search">Search</string>
+    <string name="directory">Directory</string>
 </resources>

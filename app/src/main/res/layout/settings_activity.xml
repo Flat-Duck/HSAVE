@@ -2,8 +2,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-        android:id="@+id/settings"
+    <RadioGroup
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" >
+
+        <RadioButton
+            android:id="@+id/radArb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/arabic" />
+
+        <RadioButton
+            android:id="@+id/radEng"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/english" />
+    </RadioGroup>
 </LinearLayout>

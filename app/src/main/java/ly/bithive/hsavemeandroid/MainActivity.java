@@ -55,6 +55,9 @@ public class MainActivity extends AppCompatActivity implements OnClinksDataRecei
 
         Starter starter = new Starter(this);
         helper = new DatabaseHelper(this);
+//        if (helper.getLocale().equals("bh")){
+//            helper.crea
+//        }
         starter.setDataListener(this);
         starter.callServer(GET_CLINKS_URL);
     }

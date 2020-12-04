@@ -110,7 +110,7 @@ public class ClinksActivity extends AppCompatActivity implements ClinksAdapter.S
                 return true;
             }
         });
-        searchView.setQueryHint("ابحت هنا");
+        searchView.setQueryHint(getString(R.string.search_here));
         return true;
     }
 
