@@ -96,6 +96,7 @@ public class MainActivity extends AppCompatActivity implements OnClinksDataRecei
 
             if (helper.getTimeStamp() == 0L || helper.getTimeStamp() != timeStamp) //
             {
+                helper.deleteAllClinks();
                 for (int i = 0; i < item.length(); i++) {
                     try {
                         JSONObject clnk = item.getJSONObject(i);

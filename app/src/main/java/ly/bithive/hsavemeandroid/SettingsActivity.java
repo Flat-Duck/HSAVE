@@ -29,7 +29,7 @@ public class SettingsActivity extends AppCompatActivity {
         // locale = ;
         arab = findViewById(R.id.radArb);
         english = findViewById(R.id.radEng);
-        locale =helper.getLocale();
+        locale = helper.getLocale();
         if (helper.getLocale().equals("ar")) {
             arab.setChecked(true);
         } else {
@@ -55,7 +55,6 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void resetLocale(String locale) {
-
         Toast.makeText(this, locale, Toast.LENGTH_SHORT).show();
         helper.resetLocale(locale);
         setApplicationLocale(locale);

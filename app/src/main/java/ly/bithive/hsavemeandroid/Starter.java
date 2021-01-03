@@ -34,22 +34,6 @@ public class Starter {
         this.clinkDataListener = mDataListener;
     }
 
-    public boolean checkServerConnectivity() {
-        return status;
-    }
-
-    public long checkServerUpdates() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, CHECK_CONNECTION_URL, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                clinkDataListener.onDeviceDataReceived(response);
-            }
-        }, null);
-        requestQueue.add(jsonObjectRequest);
-
-        return timeStamp;
-    }
-
     public void callServer(String address) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, address, null, new Response.Listener<JSONObject>() {
             @Override
@@ -63,8 +47,6 @@ public class Starter {
             }
         });
         requestQueue.add(jsonObjectRequest);
-
-
     }
 
 }

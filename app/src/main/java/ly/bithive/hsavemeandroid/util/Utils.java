@@ -12,8 +12,8 @@ public class Utils {
             case DR :return GET_DOCTOR_URL;
             case DV:return GET_DEVICES_URL;
             case CL:return GET_CLINKS_URL;
-            case TS:return GET_UPDATE_URL;
-            case SP:return GET_UPDATE_URL;
+            case TS:return GET_TESTS_URL;
+            case SP:return GET_SPECIALTIES_URL;
             //case 5:return GET_CLINKS_URL;break;
             //case 2: parseDevices(item);break;
             //  case 3: parseClinks(item);break;

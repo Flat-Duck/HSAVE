@@ -17,6 +17,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
 import org.json.JSONArray;
@@ -26,6 +27,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import ly.bithive.hsavemeandroid.adapter.ProfileTabAdapter;
 import ly.bithive.hsavemeandroid.fragment.AppointmentsFragment;
 import ly.bithive.hsavemeandroid.fragment.DevicesFragment;
@@ -41,7 +43,9 @@ import ly.bithive.hsavemeandroid.model.Device;
 import ly.bithive.hsavemeandroid.model.Doctor;
 import ly.bithive.hsavemeandroid.model.Specialty;
 
+import static ly.bithive.hsavemeandroid.util.COMMON.BASE_URL;
 import static ly.bithive.hsavemeandroid.util.COMMON.GET_CLINKS_URL;
+import static ly.bithive.hsavemeandroid.util.COMMON.STORAGE_URL;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -98,8 +102,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         adapter.addFrag(new DevicesFragment(), getString(R.string.Devices));
         adapter.addFrag(new DoctorsFragment(), getString(R.string.Doctors));
-//        adapter.addFrag(new AppointmentsFragment(), getString(R.string.Appointments));
-//        adapter.addFrag(new SpecialtiesFragment(), getString(R.string.Specialties));
+       adapter.addFrag(new AppointmentsFragment(), getString(R.string.Appointments));
+        adapter.addFrag(new SpecialtiesFragment(), getString(R.string.Specialties));
         // adapter.addFrag(new TestsFragment(), "Tests");
         viewPager.setAdapter(adapter);
     }
@@ -138,6 +142,13 @@ public class ProfileActivity extends AppCompatActivity {
                 .setStatus(Boolean.parseBoolean(item.getString("status")))
                 .setVisible(Boolean.parseBoolean(item.getString("visible")));
 
+        CircleImageView imageView = (CircleImageView) findViewById(R.id.profile);
+
+       String loader = item.getString("cover");
+       String imgUrl = loader.replace("http://saveme.test/","");
+
+        Glide.with(this).load(STORAGE_URL+imgUrl).into(imageView);
+
         TextView tvName = findViewById(R.id.name);
         TextView tvAddress = findViewById(R.id.designation);
         tvName.setText(clink.getName());
@@ -145,8 +156,8 @@ public class ProfileActivity extends AppCompatActivity {
 
         parseDevices(item.getJSONArray("devices"));
         parseDoctors(item.getJSONArray("doctors"));
-       // parseSpecialty(item.getJSONArray("doctors"));
-       // parseAppointments(item.getJSONArray("doctors"));
+        parseSpecialty(item.getJSONArray("specialties"));
+        parseAppointments(item.getJSONArray("appointments"));
 
         Toast.makeText(ProfileActivity.this, "// Data Sent", Toast.LENGTH_SHORT).show();
     }
