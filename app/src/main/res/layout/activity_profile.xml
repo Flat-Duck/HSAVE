@@ -64,6 +64,8 @@
 
 <!--                android:src="@android:drawable/ic_menu_edit" />-->
 
+
+
             <TextView
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
@@ -87,7 +89,53 @@
                 android:textColor="#fff"
                 android:textSize="18sp" />
 
-<!--            <TextView-->
+            <TextView
+                android:id="@+id/beds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textSize="14sp"
+                android:textColor="#fff"
+                android:layout_centerHorizontal="true"
+                android:textStyle="bold"
+                android:layout_below="@+id/designation"
+                android:text="TextView" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/designation"
+                android:layout_alignParentEnd="true"
+
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/appo_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:text="@string/Appointments" />
+                <TextView
+                    android:id="@+id/spec_btn"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Specialties" />
+                <TextView
+                    android:id="@+id/test_btn"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="@string/tests" />
+
+            </LinearLayout>
+
+            <!--            <TextView-->
 <!--                android:id="@+id/location"-->
 <!--                android:layout_width="wrap_content"-->
 <!--                android:layout_height="wrap_content"-->

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HSaveMeAndroid</string>
+    <string name="app_name">H_SaveMe</string>
     <string name="title_home">Home</string>
     <string name="title_search">Search</string>
     <string name="title_information">Information</string>
@@ -44,4 +44,5 @@
     <string name="version">Version 1.0</string>
     <string name="search">Search</string>
     <string name="directory">Directory</string>
+    <string name="tests">Tests</string>
 </resources>

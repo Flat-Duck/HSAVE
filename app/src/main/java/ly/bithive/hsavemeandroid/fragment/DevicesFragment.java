@@ -22,46 +22,54 @@ import ly.bithive.hsavemeandroid.model.Device;
 
 
 /**
-     * import android.view.ViewGroup;
-     * A simple {@link Fragment} subclass.
-     * Use the {@link DoctorsFragment #newInstance} factory method to
-     * create an instance of this fragment.
-     */
-    public class DevicesFragment extends Fragment implements OnDevicesDataReceivedListener {
-        private RecyclerView recyclerView;
-        Context mContext;
-        public DevicesFragment() {
-        }
+ * import android.view.ViewGroup;
+ * A simple {@link Fragment} subclass.
+ * Use the {@link DoctorsFragment #newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class DevicesFragment extends Fragment implements OnDevicesDataReceivedListener {
+    private RecyclerView recyclerView;
+    Context mContext;
+    boolean clickable = true;
 
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            ProfileActivity mActivity = (ProfileActivity) getActivity();
-            mActivity.setDevicesDataListener(this);
+    public DevicesFragment() {
+    }
 
-        }
+    public DevicesFragment(boolean mClickable) {
+        this.clickable = mClickable;
+    }
 
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_doctors, container, false);
-            recyclerView = (RecyclerView) view.findViewById(R.id.RVDoctors);
-            return view;
-        }
-
-
-        @Override
-        public void onDeviceDataReceived(List<Device> deviceList) {
-
-            Log.d("WWWWWWWW", "XX" + deviceList.size());
-            DevicesAdapter mAdapter = new DevicesAdapter(deviceList,null);
-            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
-            recyclerView.setLayoutManager(mLayoutManager);
-            recyclerView.setItemAnimator(new DefaultItemAnimator());
-            recyclerView.setAdapter(mAdapter);
-            mAdapter.notifyDataSetChanged();
-
-            Log.d("hhhhhhhhhh", "XX" + mAdapter.getItemCount());
-        }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ProfileActivity mActivity = (ProfileActivity) getActivity();
+        mActivity.setDevicesDataListener(this);
 
     }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_doctors, container, false);
+        recyclerView = (RecyclerView) view.findViewById(R.id.RVDoctors);
+        return view;
+    }
+
+
+    @Override
+    public void onDeviceDataReceived(List<Device> deviceList) {
+
+        Log.d("WWWWWWWW", "XX" + deviceList.size());
+        DevicesAdapter mAdapter = new DevicesAdapter(deviceList, null);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(mContext);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setClickable(clickable);
+
+        mAdapter.notifyDataSetChanged();
+
+        Log.d("hhhhhhhhhh", "XX" + mAdapter.getItemCount());
+    }
+
+}

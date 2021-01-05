@@ -93,6 +93,9 @@ public class TestsAdapter extends RecyclerView.Adapter<TestsAdapter.MyViewHolder
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Test test = testsList.get(position);
         holder.title.setText(test.getName());
+        if(test.getDescription() == null){
+            holder.specialty.setVisibility(View.GONE);
+        }
         //   holder.specialty.setText(test.getSpecialty());
         //   holder.year.setText(test.getYear());
     }

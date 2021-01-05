@@ -23,6 +23,11 @@ import ly.bithive.hsavemeandroid.model.Doctor;
 public class DoctorsFragment extends Fragment implements OnDoctorsDataReceivedListener {
     private RecyclerView recyclerView;
     Context mContext;
+    boolean clickable = true;
+
+    public DoctorsFragment(boolean mClickable) {
+        this.clickable = mClickable;
+    }
 
     public DoctorsFragment() {
     }
@@ -53,6 +58,7 @@ public class DoctorsFragment extends Fragment implements OnDoctorsDataReceivedLi
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+        recyclerView.setClickable(clickable);
         mAdapter.notifyDataSetChanged();
 
 

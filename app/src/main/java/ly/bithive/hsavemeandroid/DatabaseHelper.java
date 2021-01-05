@@ -24,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 2;
 
     // Database Name
-    private static final String DATABASE_NAME = "save_ةe";
+    private static final String DATABASE_NAME = "save_me";
 
     // Table Names
     private static final String TABLE_CLINKS = "clinks";
@@ -34,7 +34,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     // Common column names
     private static final String KEY_ID = "id";
-    private static final String KEY_LOCALE = "locale";
 
     // CLINKS Table - column nmaes
     private static final String KEY_NAME = "name";
@@ -44,6 +43,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ADDRESS = "address";
     //   private static final String KEY_STATUS = "status";
     //  private static final String KEY_VISIBLE = "visible";
+
+    private static final String KEY_LOCALE = "locale";
 
 
     // TAGS Table - column names
@@ -65,7 +66,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_TIME_STAMP = "INSERT INTO " + TABLE_STATS + "(" + KEY_TIMESTAMP + ") VALUES(" + 0L +");";
     private static final String CREATE_LOCALE = "INSERT INTO " + TABLE_LOCALE + "(" + KEY_LOCALE + ") VALUES('ar');";
-
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -153,6 +153,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public List<Clink> getAllClinks() {
         List<Clink> clinks = new ArrayList<Clink>();
+
         String selectQuery = "SELECT  * FROM " + TABLE_CLINKS;
 
         Log.e(LOG, selectQuery);

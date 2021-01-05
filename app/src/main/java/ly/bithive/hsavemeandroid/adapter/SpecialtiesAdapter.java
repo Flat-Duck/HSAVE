@@ -99,6 +99,9 @@ public class SpecialtiesAdapter extends RecyclerView.Adapter<SpecialtiesAdapter.
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Specialty specialty = specialtiesList.get(position);
         holder.title.setText(specialty.getName());
+        if(specialty.getDescription() == null){
+            holder.specialty.setVisibility(View.GONE);
+        }
         // holder.specialty.setText(specialty.getSpecialty());
         //   holder.year.setText(specialty.getYear());
     }

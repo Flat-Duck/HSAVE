@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HSaveMeAndroid</string>
+    <string name="app_name">H_SaveMe</string>
     <string name="title_home">الرئيسية</string>
     <string name="title_search">بحث</string>
     <string name="title_information">معلومات</string>
@@ -44,4 +44,5 @@
     <string name="version">إصدار 1.0</string>
     <string name="search">بحث</string>
     <string name="directory">دليل</string>
+    <string name="tests">التحاليل</string>
 </resources>

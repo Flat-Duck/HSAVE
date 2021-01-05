@@ -3,10 +3,20 @@ package ly.bithive.hsavemeandroid;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,7 +38,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import ly.bithive.hsavemeandroid.adapter.AppointmentsAdapter;
 import ly.bithive.hsavemeandroid.adapter.ProfileTabAdapter;
+import ly.bithive.hsavemeandroid.adapter.SpecialtiesAdapter;
+import ly.bithive.hsavemeandroid.adapter.TestsAdapter;
 import ly.bithive.hsavemeandroid.fragment.AppointmentsFragment;
 import ly.bithive.hsavemeandroid.fragment.DevicesFragment;
 import ly.bithive.hsavemeandroid.fragment.DoctorsFragment;
@@ -42,10 +55,19 @@ import ly.bithive.hsavemeandroid.model.Clink;
 import ly.bithive.hsavemeandroid.model.Device;
 import ly.bithive.hsavemeandroid.model.Doctor;
 import ly.bithive.hsavemeandroid.model.Specialty;
+import ly.bithive.hsavemeandroid.model.Test;
 
+import static ly.bithive.hsavemeandroid.util.COMMON.AP;
 import static ly.bithive.hsavemeandroid.util.COMMON.BASE_URL;
+import static ly.bithive.hsavemeandroid.util.COMMON.CL;
+import static ly.bithive.hsavemeandroid.util.COMMON.DR;
+import static ly.bithive.hsavemeandroid.util.COMMON.DV;
 import static ly.bithive.hsavemeandroid.util.COMMON.GET_CLINKS_URL;
+import static ly.bithive.hsavemeandroid.util.COMMON.SP;
 import static ly.bithive.hsavemeandroid.util.COMMON.STORAGE_URL;
+import static ly.bithive.hsavemeandroid.util.COMMON.TS;
+import static ly.bithive.hsavemeandroid.util.Utils.getClinkItemLink;
+import static ly.bithive.hsavemeandroid.util.Utils.getItemLink;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -54,15 +76,16 @@ public class ProfileActivity extends AppCompatActivity {
     RequestQueue requestQueue;
     List<Doctor> doctorList;
     List<Device> deviceList;
+    List<Test> testList;
     List<Specialty> specialityList;
     List<Appointment> appointmentList;
 
+    TextView test,spec,appo,beds;
     public OnDoctorsDataReceivedListener DataListener;
 
     public void setDataListener(OnDoctorsDataReceivedListener mDataListener) {
         this.DataListener = mDataListener;
     }
-
     public OnDevicesDataReceivedListener DeviceDataListener;
 
     public void setDevicesDataListener(OnDevicesDataReceivedListener mDataListener) {
@@ -92,19 +115,74 @@ public class ProfileActivity extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         setupViewPager(viewPager);
 
+        test = (TextView) findViewById(R.id.test_btn);
+        spec = (TextView) findViewById(R.id.spec_btn);
+        appo = (TextView) findViewById(R.id.appo_btn);
+        beds = (TextView) findViewById(R.id.beds);
+
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
         getClinkProfile(Id);
+
+        test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                showDialouge(testList,1);
+            }
+        });
+        spec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialouge(specialityList,2);
+            }
+        });
+        appo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialouge(appointmentList,3);
+            }
+        });
     }
 
+    public void showDialouge(List list,int i ){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final View picker_layout = LayoutInflater.from(this).inflate(R.layout.fragment_doctors, null);
+        RecyclerView recyclerView = (RecyclerView) picker_layout.findViewById(R.id.RVDoctors);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+        recyclerView.setClickable(false);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        builder.setView(picker_layout);
+        if(i==1){
+            TestsAdapter testsAdapter = new TestsAdapter(list, null);
+            recyclerView.setAdapter(testsAdapter);
+            testsAdapter.notifyDataSetChanged();
+        }else if(i==2){
+            SpecialtiesAdapter specialtiesAdapter = new SpecialtiesAdapter(list, null);
+            recyclerView.setAdapter(specialtiesAdapter);
+            specialtiesAdapter.notifyDataSetChanged();
+        }
+        else if(i==3){
+            AppointmentsAdapter appointmentsAdapter = new AppointmentsAdapter(list, null);
+            recyclerView.setAdapter(appointmentsAdapter);
+            appointmentsAdapter.notifyDataSetChanged();
+        }
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
     private void setupViewPager(ViewPager viewPager) {
         ProfileTabAdapter adapter = new ProfileTabAdapter(getSupportFragmentManager());
 
-        adapter.addFrag(new DevicesFragment(), getString(R.string.Devices));
-        adapter.addFrag(new DoctorsFragment(), getString(R.string.Doctors));
-       adapter.addFrag(new AppointmentsFragment(), getString(R.string.Appointments));
-        adapter.addFrag(new SpecialtiesFragment(), getString(R.string.Specialties));
-        // adapter.addFrag(new TestsFragment(), "Tests");
+        adapter.addFrag(new DevicesFragment(false), getString(R.string.Devices));
+        adapter.addFrag(new DoctorsFragment(false), getString(R.string.Doctors));
         viewPager.setAdapter(adapter);
     }
 
@@ -147,6 +225,12 @@ public class ProfileActivity extends AppCompatActivity {
        String loader = item.getString("cover");
        String imgUrl = loader.replace("http://saveme.test/","");
 
+
+       if (item.getInt("beds")==1){
+            beds.setText("يوجد اسرة");
+       }else {
+           beds.setText("لايوجد اسرة");
+       }
         Glide.with(this).load(STORAGE_URL+imgUrl).into(imageView);
 
         TextView tvName = findViewById(R.id.name);
@@ -155,11 +239,27 @@ public class ProfileActivity extends AppCompatActivity {
         tvAddress.setText(clink.getAddress());
 
         parseDevices(item.getJSONArray("devices"));
-        parseDoctors(item.getJSONArray("doctors"));
+       parseDoctors(item.getJSONArray("doctors"));
         parseSpecialty(item.getJSONArray("specialties"));
         parseAppointments(item.getJSONArray("appointments"));
+        parseTests(item.getJSONArray("tests"));
 
         Toast.makeText(ProfileActivity.this, "// Data Sent", Toast.LENGTH_SHORT).show();
+    }
+
+    private void parseTests(JSONArray tests) {
+        testList = new ArrayList<>();
+        for (int i = 0; i < tests.length(); i++) {
+            try {
+                JSONObject ts = tests.getJSONObject(i);
+                Test test = new Test();
+                test.setName(ts.getString("name"));//.setDescription(dv.getString("description"));
+                testList.add(test);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     private void parseDoctors(JSONArray doctors) {
@@ -183,14 +283,13 @@ public class ProfileActivity extends AppCompatActivity {
             try {
                 JSONObject dv = appointments.getJSONObject(i);
                 Appointment appointment = new Appointment();
-                appointment.setDrName(dv.getString("name")).setaDay(dv.getString("description"))
-                        .setStarTime(dv.getString("name")).setEndTime(dv.getString("description"));
+                appointment.setDrName(dv.getString("name")).setaDay(dv.getString("day"))
+                        .setStarTime(dv.getString("start_time")).setEndTime(dv.getString("finish_time"));
                 appointmentList.add(appointment);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        AppointmentDataListener.setDataListener(appointmentList);
     }
 
     private void parseDevices(JSONArray devices) {
@@ -212,14 +311,13 @@ public class ProfileActivity extends AppCompatActivity {
         specialityList = new ArrayList<>();
         for (int i = 0; i < specialties.length(); i++) {
             try {
-                JSONObject dv = specialties.getJSONObject(i);
+                JSONObject sp = specialties.getJSONObject(i);
                 Specialty specialty = new Specialty();
-                specialty.setName(dv.getString("name")).setDescription(dv.getString("description"));
+                specialty.setName(sp.getString("name"));//.setDescription(sp.getString("description"));
                 specialityList.add(specialty);
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-        specialtiesDataListener.onSpecialtyDataReceived(specialityList);
     }
 }
